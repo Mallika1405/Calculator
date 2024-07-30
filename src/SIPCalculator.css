@@ -1,0 +1,75 @@
+body {
+    background-color: white; /* Set the background color to match the calculator's background */
+    margin: 0; /* Remove default margin */
+    font-family: Arial, sans-serif; /* Optional: Set a global font */
+}
+
+.SIP-page {
+    display: flex;
+    align-items: center; /* Center alignment for all items */
+    justify-content: center;
+    height: fit-content;
+    background-color: white;
+    margin: 0;
+}
+
+.SIP-page .calculator-container { /* for the calculator as a whole */
+    background-color: transparent;
+    padding: 0;
+    border-radius: 0;
+    box-shadow: none;
+    width: 400px;
+    max-width: 90%;
+    margin-top: 2em;
+    align-items: center; /* Center alignment */
+}
+
+.SIP-page .calculator-container h1 {
+    text-align: center;
+    color: #333;
+}
+
+.SIP-page .input-container {
+    margin: 10px 0;
+}
+
+.SIP-page .input-container label {
+    display: block;
+    color: #292727;
+}
+
+.SIP-page .input-container input[type="number"],
+.SIP-page .input-container input[type="range"] {
+    width: 100%;
+    margin-top: 10px;
+}
+
+.SIP-page button { /* for the calculate option */
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: #0650a0; /* Main button color */
+    color: rgb(255, 255, 255);
+    font-size: 20px;
+    cursor: pointer;
+    transition: background-color 0.3s ease; /* Smooth transition for hover effect */
+}
+
+.SIP-page button:hover {
+    background-color: #4a6693; /* Subtle, lighter shade for hover */
+}
+
+.SIP-page .result-container {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.SIP-page .result-container p {
+    margin: 5px 0;
+    color: #333;
+}
+
+.SIP-page .result-container span {
+    font-weight: bold;
+}
