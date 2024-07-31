@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Link, Routes } from 'react-router-dom';
+import { HashRouter as Router, Route, Link, Routes } from 'react-router-dom';
 import './App.css';
 import CompoundInterestCalculator from './CompoundInterestCalculator';
 import SimpleInterestCalculator from './SimpleInterestCalculator';
