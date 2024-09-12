@@ -1,0 +1,73 @@
+body {
+    background-color: white; /* Set the background color to match the calculator's background */
+    margin: 0; /* Remove default margin */
+    font-family: Arial, sans-serif; /* Optional: Set a global font */
+}
+
+.recurring-deposit-page {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: fit-content;
+    background-color: white;
+    margin: 0;
+}
+
+.recurring-deposit-page .calculator-container { /* For the calculator as a whole */
+    background-color: transparent;
+    padding: 0;
+    border-radius: 0;
+    box-shadow: none;
+    width: 400px;
+    max-width: 90%;
+    margin-top: 2em;
+}
+
+.recurring-deposit-page .calculator-container h1 {
+    text-align: center;
+    color: #333;
+}
+
+.recurring-deposit-page .input-container {
+    margin: 10px 0;
+}
+
+.recurring-deposit-page .input-container label {
+    display: block;
+    color: #292727;
+}
+
+.recurring-deposit-page .input-container input[type="number"],
+.recurring-deposit-page .input-container input[type="range"] {
+    width: 100%;
+    margin-top: 10px;
+}
+
+.recurring-deposit-page button { /* For the calculate button */
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: #0650a0; /* Blue button */
+    color: #fff;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.recurring-deposit-page button:hover {
+    background-color: #4a6693; /* Slightly darker blue on hover */
+}
+
+.recurring-deposit-page .result-container {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.recurring-deposit-page .result-container p {
+    margin: 5px 0;
+    color: #333;
+}
+
+.recurring-deposit-page .result-container span {
+    font-weight: bold;
+}

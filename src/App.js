@@ -5,6 +5,7 @@ import CompoundInterestCalculator from './CompoundInterestCalculator';
 import SimpleInterestCalculator from './SimpleInterestCalculator';
 import EMICalculator from './EMICalculator';
 import SIPCalculator from './SIPCalculator';
+import RecurringDepositCalculator from './RecurringDepositCalculator'; // Import the Recurring Deposit Calculator
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
           <Route path="/simple-interest" element={<SimpleInterestCalculator />} />
           <Route path="/emi" element={<EMICalculator />} />
           <Route path="/sip" element={<SIPCalculator />} />
+          <Route path="/recurring-deposit" element={<RecurringDepositCalculator />} /> {/* Add the RD route */}
         </Routes>
       </div>
     </Router>
@@ -46,6 +48,11 @@ function Home() {
           title="SIP Calculator"
           description="Calculate how much you will make with your SIP"
           link="/sip"
+        />
+        <CalculatorCard
+          title="Recurring Deposit Calculator"  // Add a card for the RD Calculator
+          description="Calculate the maturity amount of your Recurring Deposit."
+          link="/recurring-deposit"
         />
       </div>
     </div>

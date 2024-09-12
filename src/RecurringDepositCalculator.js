@@ -1,67 +1,74 @@
-// src/CompoundInterestCalculator.js
 import React, { useState } from 'react';
-import './CompoundInterestCalculator.css';
+import './RecurringDepositCalculator.css';
 
-function CompoundInterestCalculator() {
-  const [principal, setPrincipal] = useState(100000);
+function RecurringDepositCalculator() {
+  const [deposit, setDeposit] = useState(10000);
   const [rate, setRate] = useState(6);
-  const [time, setTime] = useState(5);
+  const [months, setMonths] = useState(60);
   const [frequency, setFrequency] = useState(12);
   const [result, setResult] = useState({ total: 0, interest: 0 });
 
-  const handlePrincipalChange = (e) => {
-    setPrincipal(e.target.value);
+  const handleDepositChange = (e) => {
+    setDeposit(e.target.value);
   };
 
   const handleRateChange = (e) => {
     setRate(e.target.value);
   };
 
-  const handleTimeChange = (e) => {
-    setTime(e.target.value);
+  const handleMonthsChange = (e) => {
+    setMonths(e.target.value);
   };
 
   const handleFrequencyChange = (e) => {
     setFrequency(e.target.value);
   };
 
-  const calculateCompoundInterest = (e) => {
+  const calculateRecurringDeposit = (e) => {
     e.preventDefault();
-    const principalAmount = parseFloat(principal);
+    const monthlyDeposit = parseFloat(deposit);
     const annualRate = parseFloat(rate) / 100;
-    const timePeriod = parseFloat(time);
+    const timeInMonths = parseFloat(months);
+    const timeInYears = timeInMonths / 12; // Convert months to years
     const compoundFrequency = parseInt(frequency);
 
-    const totalAmount = principalAmount * Math.pow((1 + annualRate / compoundFrequency), compoundFrequency * timePeriod);
-    const interestAmount = totalAmount - principalAmount;
+    // Correct RD Maturity Calculation using the correct RD formula
+    const maturityAmount =
+      monthlyDeposit *
+      ((Math.pow(1 + annualRate / compoundFrequency, compoundFrequency * timeInYears) - 1) /
+        (1 - Math.pow(1 + annualRate / compoundFrequency, -1 / compoundFrequency))) *
+      (1 + annualRate / compoundFrequency);
+
+    const totalDeposits = monthlyDeposit * timeInMonths;
+    const interestEarned = maturityAmount - totalDeposits;
 
     setResult({
-      total: totalAmount.toFixed(2),
-      interest: interestAmount.toFixed(2),
+      total: maturityAmount.toFixed(2),
+      interest: interestEarned.toFixed(2),
     });
   };
 
   return (
-    <div className="compound-interest-page">
+    <div className="recurring-deposit-page">
       <div className="calculator-container">
         <header>
-          <h1>Compound Interest Calculator</h1>
+          <h1>Recurring Deposit Calculator</h1>
         </header>
-        <form onSubmit={calculateCompoundInterest}>
+        <form onSubmit={calculateRecurringDeposit}>
           <div className="input-container">
-            <label>Principal amount: ₹{principal}</label>
+            <label>Monthly Deposit: ₹{deposit}</label>
             <input
               type="number"
-              value={principal}
-              onChange={handlePrincipalChange}
+              value={deposit}
+              onChange={handleDepositChange}
               min="1000"
               max="1000000"
               step="1000"
             />
             <input
               type="range"
-              value={principal}
-              onChange={handlePrincipalChange}
+              value={deposit}
+              onChange={handleDepositChange}
               min="1000"
               max="1000000"
               step="1000"
@@ -87,21 +94,21 @@ function CompoundInterestCalculator() {
             />
           </div>
           <div className="input-container">
-            <label>Time period (Years): {time}</label>
+            <label>Time period (Months): {months}</label>
             <input
               type="number"
-              value={time}
-              onChange={handleTimeChange}
+              value={months}
+              onChange={handleMonthsChange}
               min="1"
-              max="30"
+              max="360"
               step="1"
             />
             <input
               type="range"
-              value={time}
-              onChange={handleTimeChange}
+              value={months}
+              onChange={handleMonthsChange}
               min="1"
-              max="30"
+              max="360"
               step="1"
             />
           </div>
@@ -114,15 +121,17 @@ function CompoundInterestCalculator() {
               <option value="12">Monthly</option>
             </select>
           </div>
-          <button type="submit">Calculate</button>
+          <div className="button-container">
+            <button type="submit">Calculate</button>
+          </div>
         </form>
         <div className="result-container">
-          <p>Total Amount: ₹{result.total}</p>
-          <p>Total Interest: ₹{result.interest}</p>
+          <p>Total Maturity Amount: ₹{result.total}</p>
+          <p>Total Interest Earned: ₹{result.interest}</p>
         </div>
       </div>
     </div>
   );
 }
 
-export default CompoundInterestCalculator;
+export default RecurringDepositCalculator;
