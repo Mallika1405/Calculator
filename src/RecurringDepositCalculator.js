@@ -5,7 +5,6 @@ function RecurringDepositCalculator() {
   const [deposit, setDeposit] = useState(10000);
   const [rate, setRate] = useState(6);
   const [months, setMonths] = useState(60);
-  const [frequency, setFrequency] = useState(12);
   const [result, setResult] = useState({ total: 0, interest: 0 });
 
   const handleDepositChange = (e) => {
@@ -20,24 +19,20 @@ function RecurringDepositCalculator() {
     setMonths(e.target.value);
   };
 
-  const handleFrequencyChange = (e) => {
-    setFrequency(e.target.value);
-  };
-
   const calculateRecurringDeposit = (e) => {
     e.preventDefault();
     const monthlyDeposit = parseFloat(deposit);
-    const annualRate = parseFloat(rate) / 100;
+    const annualRate = parseFloat(rate) / 100; // Convert percentage to decimal
     const timeInMonths = parseFloat(months);
+    const compoundingFrequency = 4; // Quarterly compounding as per the formula
     const timeInYears = timeInMonths / 12; // Convert months to years
-    const compoundFrequency = parseInt(frequency);
 
-    // Correct RD Maturity Calculation using the correct RD formula
-    const maturityAmount =
-      monthlyDeposit *
-      ((Math.pow(1 + annualRate / compoundFrequency, compoundFrequency * timeInYears) - 1) /
-        (1 - Math.pow(1 + annualRate / compoundFrequency, -1 / compoundFrequency))) *
-      (1 + annualRate / compoundFrequency);
+    // Calculate RD maturity amount using the correct formula
+    let maturityAmount = 0;
+    for (let i = 0; i < timeInMonths; i++) {
+      const term = (timeInMonths - i) / 12; // Tenure for each deposit in years
+      maturityAmount += monthlyDeposit * Math.pow((1 + annualRate / compoundingFrequency), compoundingFrequency * term);
+    }
 
     const totalDeposits = monthlyDeposit * timeInMonths;
     const interestEarned = maturityAmount - totalDeposits;
@@ -61,17 +56,17 @@ function RecurringDepositCalculator() {
               type="number"
               value={deposit}
               onChange={handleDepositChange}
-              min="1000"
-              max="1000000"
-              step="1000"
+              min="100"
+              max="100000"
+              step="100"
             />
             <input
               type="range"
               value={deposit}
               onChange={handleDepositChange}
-              min="1000"
-              max="1000000"
-              step="1000"
+              min="100"
+              max="100000"
+              step="100"
             />
           </div>
           <div className="input-container">
@@ -100,7 +95,7 @@ function RecurringDepositCalculator() {
               value={months}
               onChange={handleMonthsChange}
               min="1"
-              max="360"
+              max="120"
               step="1"
             />
             <input
@@ -108,18 +103,12 @@ function RecurringDepositCalculator() {
               value={months}
               onChange={handleMonthsChange}
               min="1"
-              max="360"
+              max="120"
               step="1"
             />
           </div>
           <div className="input-container">
-            <label>Compounding frequency</label>
-            <select value={frequency} onChange={handleFrequencyChange}>
-              <option value="1">Yearly</option>
-              <option value="2">Half-Yearly</option>
-              <option value="4">Quarterly</option>
-              <option value="12">Monthly</option>
-            </select>
+            <label>Compounding frequency: Quarterly</label>
           </div>
           <div className="button-container">
             <button type="submit">Calculate</button>
