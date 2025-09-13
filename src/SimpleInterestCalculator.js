@@ -5,7 +5,7 @@ function SimpleInterestCalculator() {
   const[principal, setPrincipal]=useState(10000)
   const[rate,setRate]=useState(5)
   const[time,setTime]=useState(5)
-  const [result, setResult] = useState({ interest: 0, total: 0 });
+  const [result, setResult] = useState({ interest: 0, total: 0 }):
 
   const handlePrincipalChange =(e)=>{
     setPrincipal(e.target.value);
